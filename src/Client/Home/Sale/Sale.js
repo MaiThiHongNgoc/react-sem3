@@ -1,14 +1,8 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
-import { gsap } from "gsap";
+import React, { useState, useRef } from "react";
 import "./Sale.css";
 
 const Sale = () => {
-  const [clickedItems, setClickedItems] = useState([
-    false,
-    false,
-    false,
-    false,
-  ]);
+  const [clickedItems, setClickedItems] = useState([false, false, false, false]);
   const itemsRef = useRef([]);
 
   const images = [
@@ -30,75 +24,12 @@ const Sale = () => {
     },
   ];
 
-  const expand = useCallback(
-    (index) => {
-      const newClickedItems = [...clickedItems];
-      newClickedItems[index] = !newClickedItems[index];
-      setClickedItems(newClickedItems);
-
-      const items = itemsRef.current;
-
-      items.forEach((it, i) => {
-        if (index === i || !it) return; // Kiểm tra `it` trước
-        gsap.to(it, {
-          width: "10vw",
-          scale: 1,
-          duration: 2,
-          ease: "elastic(1, .6)",
-        });
-        const overlay = it.querySelector(".overlay");
-        const menu = it.querySelector(".menu");
-        if (overlay && menu) {
-          gsap.to(overlay, { opacity: 0, duration: 2.5 });
-          gsap.to(menu, { opacity: 0, duration: 2.5 });
-        }
-      });
-
-      const item = items[index];
-      if (!item) return; // Kiểm tra `item` trước
-      const overlay = item.querySelector(".overlay");
-      const menu = item.querySelector(".menu");
-
-      if (!overlay || !menu) return;
-
-      gsap.to(item, {
-        width: newClickedItems[index] ? "25vw" : "10vw",
-        scale: newClickedItems[index] ? 1.2 : 1,
-        duration: 2.5,
-      });
-
-      gsap.to(overlay, {
-        opacity: newClickedItems[index] ? 1 : 0,
-        duration: 2.5,
-      });
-
-      gsap.to(menu, {
-        opacity: newClickedItems[index] ? 1 : 0,
-        duration: 2.5,
-      });
-    },
-    [clickedItems]
-  );
-
-  useEffect(() => {
-    const items = itemsRef.current;
-
-    if (!items || items.length === 0) return;
-
-    items.forEach((item, index) => {
-      if (item) {
-        item.addEventListener("click", () => expand(index));
-      }
-    });
-
-    return () => {
-      items.forEach((item) => {
-        if (item) {
-          item.removeEventListener("click", expand);
-        }
-      });
-    };
-  }, [expand]);
+  const handleClick = (index) => {
+    const newClickedItems = clickedItems.map((clicked, i) =>
+      i === index ? !clicked : false
+    );
+    setClickedItems(newClickedItems);
+  };
 
   return (
     <div className="Sale">
@@ -106,14 +37,14 @@ const Sale = () => {
         Helloresto <br />
         <span>menulist</span>
       </h2>
-
       <div className="group">
         {images.map((image, index) => (
           <div
             key={index}
-            className="item-list"
+            className={`item-list ${clickedItems[index] ? "expanded" : ""}`}
             ref={(el) => (itemsRef.current[index] = el)}
             style={{ "--url": `url('${image.url}')` }}
+            onClick={() => handleClick(index)}
           >
             <div className="overlay"></div>
             <div className="menu">
