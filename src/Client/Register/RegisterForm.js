@@ -13,7 +13,7 @@ const RegisterForm = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const API_URL = "http://localhost:5024/api/auth";
+  const API_URL = "https://shopy-emahgphwbhgpd3bs.japanwest-01.azurewebsites.net/api/auth";
 
   // Kiểm tra email hợp lệ
   const isEmailValid = (email) => {
