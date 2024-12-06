@@ -1,0 +1,70 @@
+.promotions-container {
+  padding: 20px;
+  text-align: center;
+}
+
+.promotions-title {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.promotions-grid {
+  display: flex; /* Dùng flexbox để các sản phẩm nằm ngang */
+  gap: 20px;
+  justify-content: center; /* Căn giữa nội dung theo chiều ngang */
+  flex-wrap: wrap; /* Đảm bảo các sản phẩm sẽ xuống hàng nếu không đủ chỗ */
+}
+
+.promotion-card {
+  background-color: transparent; /* Xóa màu nền */
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  width: 300px; /* Cố định chiều rộng */
+}
+
+.promotion-card:hover {
+  transform: translateY(-10px);
+}
+
+.promotion-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.promotion-title {
+  font-size: 1.5rem;
+  color: #444;
+  margin: 10px 0;
+}
+
+.promotion-description {
+  font-size: 1rem;
+  color: #666;
+  margin: 10px 0;
+}
+
+.promotion-valid {
+  font-size: 0.9rem;
+  color: #999;
+  margin-bottom: 10px;
+}
+
+.promotion-button {
+  background-color: #ff6f61;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+.promotion-button:hover {
+  background-color: #e6554f;
+}
